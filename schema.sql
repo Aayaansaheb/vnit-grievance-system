@@ -1,0 +1,55 @@
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  role VARCHAR(20) NOT NULL,
+  hostel VARCHAR(120),
+  room VARCHAR(20),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS complaints (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  resident_id INT NOT NULL,
+  title VARCHAR(200) NOT NULL,
+  category VARCHAR(100) NOT NULL,
+  description TEXT NOT NULL,
+  hostel VARCHAR(120),
+  room VARCHAR(20),
+  priority VARCHAR(20) DEFAULT 'Normal',
+  status VARCHAR(20) DEFAULT 'Pending',
+  assigned_to INT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (resident_id) REFERENCES users(id),
+  FOREIGN KEY (assigned_to) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS complaint_images (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  complaint_id INT NOT NULL,
+  path VARCHAR(512) NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (complaint_id) REFERENCES complaints(id)
+);
+
+CREATE TABLE IF NOT EXISTS proof_images (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  complaint_id INT NOT NULL,
+  uploader_id INT NOT NULL,
+  path VARCHAR(512) NOT NULL,
+  note VARCHAR(255),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (complaint_id) REFERENCES complaints(id),
+  FOREIGN KEY (uploader_id) REFERENCES users(id)
+);
+
+CREATE TABLE IF NOT EXISTS notifications (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  message VARCHAR(255) NOT NULL,
+  read BOOLEAN DEFAULT 0,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);

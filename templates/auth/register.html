@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card" style="max-width:720px;margin:0 auto">
+  <div class="card-title"><h1>Register</h1></div>
+  <form method="post" class="grid grid-2">
+    <div>
+      <label>Name</label>
+      <input name="name" required>
+    </div>
+    <div>
+      <label>Email (VNIT)</label>
+      <input type="email" name="email" required>
+    </div>
+    <div>
+      <label>Password</label>
+      <input type="password" name="password" required>
+    </div>
+    <div>
+      <label>Role</label>
+      <select name="role">
+        {% for r in roles %}<option value="{{ r }}">{{ r|capitalize }}</option>{% endfor %}
+      </select>
+    </div>
+    <div>
+      <label>Hostel</label>
+      <input name="hostel" placeholder="e.g., Hostel A">
+    </div>
+    <div>
+      <label>Room</label>
+      <input name="room" placeholder="e.g., B-203">
+    </div>
+    <div class="grid-span-2">
+      <button type="submit" class="btn btn-filled">
+        <span class="material-symbols-outlined">person_add</span> Create Account
+      </button>
+    </div>
+  </form>
+  <style>.grid-span-2{ grid-column: 1 / -1; }</style>
+</div>
+{% endblock %}

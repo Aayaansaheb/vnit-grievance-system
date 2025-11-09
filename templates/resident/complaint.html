@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-title">
+    <h1>File New Complaint</h1>
+  </div>
+
+  <form method="post" enctype="multipart/form-data" class="grid grid-2">
+    <div>
+      <label>Title</label>
+      <input name="title" placeholder="e.g., Short circuit in Room" required>
+    </div>
+    <div>
+      <label>Category</label>
+      <select name="category" required>
+        <option>Electrical</option>
+        <option>Plumbing</option>
+        <option>Cleaning</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="grid-span-2">
+      <label>Description</label>
+      <textarea name="description" placeholder="Describe the issue in detail. Use the mic for emergency voice input."></textarea>
+      <div class="flex mt">
+        <button type="button" id="start-voice" class="btn btn-tonal">
+          <span class="material-symbols-outlined">mic</span> Voice (Emergency)
+        </button>
+        <small style="color:var(--md-text-2)">Uses your browser's speech-to-text if available.</small>
+      </div>
+    </div>
+
+    <div>
+      <label>Hostel</label>
+      <input name="hostel" value="{{ current_user.hostel or '' }}" placeholder="e.g., Hostel A">
+    </div>
+    <div>
+      <label>Room</label>
+      <input name="room" value="{{ current_user.room or '' }}" placeholder="e.g., B-203">
+    </div>
+
+    <div class="grid-span-2">
+      <label>Images (optional)</label>
+      <input type="file" name="images" accept="image/*" multiple>
+    </div>
+
+    <div class="grid-span-2">
+      <button type="submit" class="btn btn-filled">
+        <span class="material-symbols-outlined">send</span> Submit
+      </button>
+    </div>
+  </form>
+</div>
+<script src="{{ url_for('static', filename='voice.js') }}"></script>
+<style>.grid-span-2{ grid-column: 1 / -1; }</style>
+{% endblock %}

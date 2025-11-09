@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-title">
+    <h1>All Complaints</h1>
+    <form method="get" class="flex">
+      <select name="status">
+        <option value="">All Statuses</option>
+        {% for s in statuses %}<option value="{{ s }}" {% if request.args.get('status')==s %}selected{% endif %}>{{ s }}</option>{% endfor %}
+      </select>
+      <select name="category">
+        <option value="">All Categories</option>
+        <option>Electrical</option><option>Plumbing</option><option>Cleaning</option><option>Other</option>
+      </select>
+      <select name="priority">
+        <option value="">Any Priority</option>
+        <option {% if request.args.get('priority')=='Emergency' %}selected{% endif %}>Emergency</option>
+        <option {% if request.args.get('priority')=='Normal' %}selected{% endif %}>Normal</option>
+      </select>
+      <button class="btn btn-tonal" type="submit"><span class="material-symbols-outlined">filter_alt</span> Filter</button>
+    </form>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Title</th><th>Resident</th><th>Category</th><th>Priority</th><th>Status</th><th>Assign</th><th>Change</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in complaints %}
+        <tr>
+          <td>{{ c.id }}</td>
+          <td>{{ c.title }}</td>
+          <td>{{ c.resident.name }}</td>
+          <td>{{ c.category }}</td>
+          <td>
+            <span class="chip {% if c.priority=='Emergency' %}emergency{% else %}normal{% endif %}">
+              <span class="material-symbols-outlined">warning</span> {{ c.priority }}
+            </span>
+          </td>
+          <td>{{ c.status }}</td>
+          <td>
+            <form method="post" action="{{ url_for('admin.assign_worker') }}" class="flex">
+              <input type="hidden" name="complaint_id" value="{{ c.id }}">
+              <select name="worker_id">
+                <option value="">-- none --</option>
+                {% for w in workers %}<option value="{{ w.id }}" {% if c.assigned_to==w.id %}selected{% endif %}>{{ w.name }}</option>{% endfor %}
+              </select>
+              <button class="btn btn-text" title="Assign"><span class="material-symbols-outlined">assignment_ind</span></button>
+            </form>
+          </td>
+          <td>
+            <form method="post" action="{{ url_for('admin.update_status') }}" class="flex">
+              <input type="hidden" name="complaint_id" value="{{ c.id }}">
+              <select name="status">
+                {% for s in statuses %}<option value="{{ s }}" {% if c.status==s %}selected{% endif %}>{{ s }}</option>{% endfor %}
+              </select>
+              <button class="btn btn-text" title="Update"><span class="material-symbols-outlined">save</span></button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="8">No complaints.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

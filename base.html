@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VNIT Hostel Grievance</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='logo.png') }}">
+</head>
+<body>
+  <header class="appbar">
+    <div class="appbar-left">
+      <img src="{{ url_for('static', filename='logo.png') }}" class="logo" alt="VNIT Logo">
+      <div>
+        <div class="brand-title">VNIT Hostel Grievance System</div>
+        <div class="brand-sub">Resolve. Track. Improve.</div>
+      </div>
+    </div>
+
+    <nav class="appbar-right">
+      {% if current_user.is_authenticated %}
+        <a class="btn btn-filled" href="{{ url_for('auth.logout') }}">Logout</a>
+      {% else %}
+        <a class="btn btn-filled" href="{{ url_for('auth.login') }}">Login</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    © {{ now().year }} VNIT Nagpur | Built for a better campus
+  </footer>
+</body>
+</html>

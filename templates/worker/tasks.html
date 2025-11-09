@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-title">
+    <h1>My Tasks</h1>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Title</th><th>Location</th><th>Status</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in tasks %}
+        <tr>
+          <td>{{ t.id }}</td>
+          <td>{{ t.title }}</td>
+          <td>{{ t.hostel }} {{ t.room }}</td>
+          <td>{{ t.status }}</td>
+          <td>
+            <form method="post" action="{{ url_for('worker.update_progress') }}" class="flex" style="display:inline-flex">
+              <input type="hidden" name="complaint_id" value="{{ t.id }}">
+              <select name="status">
+                <option {% if t.status=='In Progress' %}selected{% endif %}>In Progress</option>
+                <option {% if t.status=='Completed' %}selected{% endif %}>Completed</option>
+              </select>
+              <button class="btn btn-text"><span class="material-symbols-outlined">save</span> Save</button>
+            </form>
+            <form method="post" action="{{ url_for('worker.upload_proof') }}" enctype="multipart/form-data" class="flex" style="display:inline-flex">
+              <input type="hidden" name="complaint_id" value="{{ t.id }}">
+              <input type="file" name="proof" accept="image/*" required>
+              <input type="text" name="note" placeholder="note (optional)">
+              <button class="btn btn-tonal"><span class="material-symbols-outlined">upload</span> Proof</button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5">No tasks.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

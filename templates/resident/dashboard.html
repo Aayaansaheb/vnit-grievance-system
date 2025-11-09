@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-title">
+    <h1>My Complaints</h1>
+    <a class="btn btn-filled" href="{{ url_for('resident.new_complaint') }}">
+      <span class="material-symbols-outlined">add</span> New Complaint
+    </a>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Title</th><th>Category</th><th>Priority</th><th>Status</th><th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for c in complaints %}
+        <tr>
+          <td>{{ c.id }}</td>
+          <td>{{ c.title }}</td>
+          <td>{{ c.category }}</td>
+          <td>
+            <span class="chip {% if c.priority=='Emergency' %}emergency{% else %}normal{% endif %}">
+              <span class="material-symbols-outlined">priority_high</span> {{ c.priority }}
+            </span>
+          </td>
+          <td>{{ c.status }}</td>
+          <td>{{ c.updated_at.strftime('%Y-%m-%d %H:%M') }}</td>
+        </tr>
+      {% else %}
+        <tr><td colspan="6">No complaints yet.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
