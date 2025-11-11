@@ -107,3 +107,62 @@ textarea{ min-height:120px; resize:vertical; }
 .flex{ display:flex; gap:10px; align-items:center; }
 .flex-between{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
 .mt{ margin-top:16px; }
+
+/* Styling for select elements */
+select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 14px;
+    min-width: 120px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select:hover {
+    border-color: #999;
+}
+
+select:focus {
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+}
+
+/* Specific styles for different select types */
+select[name="status"] option {
+    padding: 8px;
+}
+
+select[name="priority"] option[value="Emergency"] {
+    color: #d32f2f;
+    font-weight: bold;
+}
+
+select[name="priority"] option[value="Normal"] {
+    color: #1976d2;
+}
+
+select[name="category"] option {
+    padding: 8px;
+}
+
+/* Style for disabled or empty options */
+select option[value=""] {
+    color: black;
+    font-style: italic;
+}
+
+/* Style for selected options */
+select option:checked {
+    background-color: #0a2234db;
+}
+
+.card .flex select {
+    margin-right: 10px;
+}
+
+.card .flex select:last-of-type {
+    margin-right: 0;
+}

@@ -6,7 +6,7 @@ from flask_login import current_user
 EMERGENCY_KEYWORDS = {
     "fire", "smoke", "gas leak", "leak", "water leakage", "water leak",
     "short circuit", "sparks", "electrocution", "medical", "unconscious",
-    "bleeding", "faint", "power outage", "power cut"
+    "bleeding", "faint", "power outage", "power cut","intruder",
 }
 
 def role_required(*roles):

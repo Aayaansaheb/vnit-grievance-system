@@ -6,7 +6,7 @@ class BaseConfig:
     # Example: mysql+mysqldb://user:pass@localhost:3306/vnit_grievance
     SQLALCHEMY_DATABASE_URI = os.getenv(
         "DATABASE_URL",
-        "mysql+pymysql://root:password@127.0.0.1:3306/vnit_grievance"
+        "mysql+pymysql://freedb_Aayaan:q#b9jhJbeNZzjU2@sql.freedb.tech:3306/freedb_grievance_db"
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     REMEMBER_COOKIE_DURATION = timedelta(days=14)
