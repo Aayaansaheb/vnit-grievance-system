@@ -3,8 +3,7 @@ from flask import Flask
 from flask_login import LoginManager
 from models import db, User
 from config import DevConfig
-import pymysql
-pymysql.install_as_MySQLdb()
+
 
 
 login_manager = LoginManager()
