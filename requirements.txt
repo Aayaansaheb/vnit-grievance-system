@@ -1,9 +1,10 @@
 Flask
-Flask-SQLAlchemy
 Flask-Login
 Flask-Mail
-pymysql
+Flask-WTF
+Flask-SQLAlchemy
 email-validator
+psycopg2-binary
 spacy
 gunicorn
 python-dotenv
